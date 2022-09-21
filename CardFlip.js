@@ -221,7 +221,7 @@ class CardFlip extends Component<Props> {
       // cardA Y-rotation
       const aYRotation = rotation.y.interpolate({
         inputRange: [0, 50, 100, 150],
-        outputRange: ["-180deg", "0deg", "180deg", "0deg"],
+        outputRange: ["180deg", "0deg", "-180deg", "0deg"],
         extrapolate: "clamp"
       });
       sideATransform.transform.push({ rotateY: aYRotation });
@@ -256,7 +256,7 @@ class CardFlip extends Component<Props> {
         // cardB Y-rotation
         bYRotation = rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
-          outputRange: ["0deg", "180deg", "0deg", "-180deg"],
+          outputRange: ["0deg", "-180deg", "0deg", "180deg"],
           extrapolate: "clamp"
         });
       } else {
@@ -343,4 +343,4 @@ CardFlip.propTypes = {
 };
 
 polyfill(CardFlip)
-export default CardFlip 
+export default CardFlip
