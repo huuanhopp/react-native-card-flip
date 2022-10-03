@@ -21,8 +21,8 @@ class CardFlip extends Component<Props> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.duration !== prevState.duration ||
-      nextProps.flipZoom !== prevState.flipZoom ||
-      nextProps.children !== prevState.sides) {
+        nextProps.flipZoom !== prevState.flipZoom ||
+        nextProps.children !== prevState.sides) {
       return {
         duration: nextProps.duration,
         flipZoom: nextProps.flipZoom,
@@ -52,36 +52,36 @@ class CardFlip extends Component<Props> {
 
     if (direction === "right") {
       sequence.push(
-        Animated.timing(rotation, {
-          toValue: {
-            x: 0,
-            y: side === 0 ? 50 + progress * 50 : 90
-          },
-          duration,
-          useNativeDriver: true
-        })
+          Animated.timing(rotation, {
+            toValue: {
+              x: 0,
+              y: side === 0 ? 50 + progress * 50 : 90
+            },
+            duration,
+            useNativeDriver: true
+          })
       );
     } else {
       sequence.push(
+          Animated.timing(rotation, {
+            toValue: {
+              x: 0,
+              y: side === 0 ? 50 - progress * 50 : 90
+            },
+            duration,
+            useNativeDriver: true
+          })
+      );
+    }
+    sequence.push(
         Animated.timing(rotation, {
           toValue: {
             x: 0,
-            y: side === 0 ? 50 - progress * 50 : 90
+            y: side === 0 ? 50 : 100
           },
           duration,
           useNativeDriver: true
         })
-      );
-    }
-    sequence.push(
-      Animated.timing(rotation, {
-        toValue: {
-          x: 0,
-          y: side === 0 ? 50 : 100
-        },
-        duration,
-        useNativeDriver: true
-      })
     );
     Animated.sequence(sequence).start();
   }
@@ -97,36 +97,36 @@ class CardFlip extends Component<Props> {
     const sequence = [];
     for (let i = 0; i < count; i++) {
       sequence.push(
-        Animated.timing(rotation, {
-          toValue: {
-            x: 0,
-            y: side === 0 ? 50 + progress * 50 : 90
-          },
-          duration,
-          useNativeDriver: true
-        })
+          Animated.timing(rotation, {
+            toValue: {
+              x: 0,
+              y: side === 0 ? 50 + progress * 50 : 90
+            },
+            duration,
+            useNativeDriver: true
+          })
       );
 
       sequence.push(
+          Animated.timing(rotation, {
+            toValue: {
+              x: 0,
+              y: side === 0 ? 50 - progress * 50 : 110
+            },
+            duration,
+            useNativeDriver: true
+          })
+      );
+    }
+    sequence.push(
         Animated.timing(rotation, {
           toValue: {
             x: 0,
-            y: side === 0 ? 50 - progress * 50 : 110
+            y: side === 0 ? 50 : 100
           },
           duration,
           useNativeDriver: true
         })
-      );
-    }
-    sequence.push(
-      Animated.timing(rotation, {
-        toValue: {
-          x: 0,
-          y: side === 0 ? 50 : 100
-        },
-        duration,
-        useNativeDriver: true
-      })
     );
     Animated.sequence(sequence).start();
   }
@@ -263,7 +263,7 @@ class CardFlip extends Component<Props> {
         // cardB Y-rotation
         bYRotation = rotation.y.interpolate({
           inputRange: [0, 50, 100, 150],
-          outputRange: ["0deg", "-180deg", "0deg", "180deg"],
+          outputRange: ["0deg", "180deg", "0deg", "-180deg"],
           extrapolate: "clamp"
         });
       }
@@ -294,14 +294,14 @@ class CardFlip extends Component<Props> {
     };
 
     return (
-      <Animated.View style={[this.props.style, scaling]}>
-        <Animated.View style={[styles.cardContainer, cardATransform]}>
-          {sides[0]}
+        <Animated.View style={[this.props.style, scaling]}>
+          <Animated.View style={[styles.cardContainer, cardATransform]}>
+            {sides[0]}
+          </Animated.View>
+          <Animated.View style={[styles.cardContainer, cardBTransform]}>
+            {sides[1]}
+          </Animated.View>
         </Animated.View>
-        <Animated.View style={[styles.cardContainer, cardBTransform]}>
-          {sides[1]}
-        </Animated.View>
-      </Animated.View>
     );
   }
 }
